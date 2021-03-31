@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+node_modules/
+yarn-error.log
+packages/components/src/firebase/firebase.tsx
+packages/components/src/constants.tsx
+*.hprof
+packages/mobile/android/app/google-services.json
+packages/mobile/android/gradle.properties
+packages/mobile/android/app/AronNikiCucc.jks
