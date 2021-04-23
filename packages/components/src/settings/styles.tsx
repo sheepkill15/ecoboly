@@ -84,6 +84,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		width: '100%',
 		borderRadius: 8,
 		padding: 8,
+		margin: 4,
 		backgroundColor: theme.accentColor,
 		color: theme.textColor,
 	},

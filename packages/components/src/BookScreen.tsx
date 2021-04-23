@@ -106,11 +106,11 @@ const SubjectScreen = ({ navigation }: Props) => {
 	);
 	return (
 		<>
-			<View style={styles.subjectDescription}>
-				<Picker onValueChange={(value: string) => setSelOsztaly(value)}>
+			<View style={styles.buttonBox}>
+				<Picker style={styles.textInput} onValueChange={(value: string) => setSelOsztaly(value)}>
 					{classes.map((value, id) => <Picker.Item label={value} value={value} key={id} />)}
 				</Picker>
-				<Picker onValueChange={(value: string) => setSelTantargy(value)}>
+				<Picker style={styles.textInput} onValueChange={(value: string) => setSelTantargy(value)}>
 					{tantargyak.map((value, id) => <Picker.Item label={value} value={value} key={id} />)}
 				</Picker>
 			</View>
