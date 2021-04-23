@@ -23,6 +23,7 @@ import SettingsStore from './settings/SettingsStore';
 
 import BookElement from './loaders/book';
 import OpenPdfExtern from './loaders/openpdfextern';
+import bookOpenWrapper from './loaders/bookopen';
 
 import Edit from './Edit';
 
@@ -163,6 +164,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 		} else {
 			setCurrBook(item as Book);
 			refRBSheet.current?.open();
+			bookOpenWrapper(item as Book);
 		}
 	};
 	
