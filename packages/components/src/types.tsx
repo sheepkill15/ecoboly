@@ -116,6 +116,8 @@ export type StoreModel = {
 export type SettingsModel = {
   selectedTheme: 'light' | 'dark';
   externalReader: boolean;
+  topNavigation: boolean;
+  setTopNavigation: Action<SettingsModel, boolean>;
   setSelectedTheme: Action<SettingsModel, 'light' | 'dark'>;
   setExternalReader: Action<SettingsModel, boolean>;
 };

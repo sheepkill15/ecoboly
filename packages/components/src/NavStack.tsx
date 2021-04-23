@@ -55,6 +55,9 @@ const NavStack = () => {
 	const setIsExternal = SettingsStore.useStoreActions(
 		(actions) => actions.setExternalReader,
 	);
+	const setTopNavigation = SettingsStore.useStoreActions((actions) => actions.setTopNavigation);
+	
+	const topNav = SettingsStore.useStoreState((state) => state.topNavigation);
 	const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 
 	const [styles, theme] = useTheme(Theme, currTheme);
@@ -100,9 +103,21 @@ const NavStack = () => {
 				console.log(e);
 			}
 		};
+		const fetchTopNavigation = async () => {
+			try {
+				const value = await AsyncStorage.getItem('@settings_top_navigation');
+				if(value !== null) {
+					setTopNavigation(value === 'true' ? true : false);
+				}
+			}
+			catch(e) {
+				console.log(e);
+			}
+		};
 		fetchTheme();
 		fetchCode();
 		fetchExternal();
+		fetchTopNavigation();
 	}, [retrieveCode, setSelectedTheme, setIsExternal]);
 	return isCode !== null ? (
 		<View style={{width: '100%', height: '100%', backgroundColor: theme.backgroundColor}}>
@@ -112,7 +127,7 @@ const NavStack = () => {
 					swipeEnabled={false}
 					initialLayout={{ width: Dimensions.get('window').width }}
 					lazy={true}
-					tabBarPosition="top"
+					tabBarPosition={topNav ? 'top' : 'bottom'}
 					tabBarOptions={{
 						activeTintColor: theme.activeText,
 						inactiveTintColor: theme.inactiveText,

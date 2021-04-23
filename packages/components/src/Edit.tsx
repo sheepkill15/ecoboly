@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTheme } from 'react-native-themed-styles';
 import { Text, TouchableOpacity, Modal, View, TextInput, Image } from 'react-native';
 
@@ -9,6 +9,9 @@ import { Picker } from '@react-native-picker/picker';
 import EditOutline from './res/edit-outline';
 import AddOutline from './res/add-outline';
 
+import DataStore from './firebase/datastore';
+import {CodeRegExTeacher} from './constants';
+
 const Icons: {[id: string]: any} = {
     Add: AddOutline,
     Edit: EditOutline
@@ -17,6 +20,7 @@ const Icons: {[id: string]: any} = {
 const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: string]: any }; onSave: (data: { [id: string]: any }) => void }) => {
 
     const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
+    const currCode = DataStore.useStoreState((state) => state.userCode);
     const [styles, theme] = useTheme(Theme, currTheme);
     const [editModalVisible, setEditVisible] = useState(false);
 
@@ -41,7 +45,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
         setNewData({ ...newData, [name]: text });
     }
 
-    return (
+    return ( currCode.match(CodeRegExTeacher) ?
         <>
             <TouchableOpacity onPress={() => setEditVisible(true)} style={styles.editButton}>
                 {variant ? Icons[variant]({width: 32, fill: theme.activeText, stroke: theme.textColor}) : ''}
@@ -87,7 +91,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                     </View>
                 </View>
             </Modal>
-        </>
+        </> : <></>
     )
 }
 export default Edit;

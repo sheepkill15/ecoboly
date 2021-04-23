@@ -5,7 +5,7 @@ import {SettingsModel} from '../types';
 const SettingsStore = createContextStore<SettingsModel>({
 	selectedTheme: 'dark',
 	externalReader: false,
-
+	topNavigation: true,
 	setSelectedTheme: action((state, payload) => {
 		state.selectedTheme = payload;
 		AsyncStorage.setItem('@settings_theme', payload).catch((e) =>
@@ -18,5 +18,9 @@ const SettingsStore = createContextStore<SettingsModel>({
 			console.log(e),
 		);
 	}),
+	setTopNavigation: action((state, payload) => {
+		state.topNavigation = payload;
+		AsyncStorage.setItem("@settings_top_navigation", String(payload)).catch(e => console.log(e)); 
+	})
 });
 export default SettingsStore;

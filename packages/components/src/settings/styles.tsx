@@ -89,7 +89,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		color: theme.textColor,
 	},
 	buttonBox: {
-		padding: 8,
+		padding: 4,
 		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
