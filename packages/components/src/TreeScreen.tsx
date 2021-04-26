@@ -1,5 +1,5 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react';
-import {TouchableOpacity, Text, Linking, View} from 'react-native';
+import {TouchableOpacity, Text, Linking, View, FlatList} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {useTheme} from 'react-native-themed-styles';
 import store from './firebase/datastore';
@@ -27,7 +27,6 @@ import bookOpenWrapper from './loaders/bookopen';
 
 import Edit from './Edit';
 import { CodeRegExTeacher } from './constants';
-import ResponsiveList from './ResponsiveList';
 
 type Props = {
 	route: TreeScreenRouteProp;
@@ -279,7 +278,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 				<Text style={styles.mediumText}>{item.nev}</Text>
 			</TouchableOpacity>
 			{selected === item.nev ? (
-				<><ResponsiveList
+				<><FlatList
 					style={styles.treeItemsList}
 					data={items}
 					renderItem={treeItem}
@@ -309,7 +308,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 	return (
 		<>
 			{capitols ? (
-				<ResponsiveList
+				<FlatList
 					data={capitols}
 					renderItem={capitolItem}
 					extraData={[selected, items]}

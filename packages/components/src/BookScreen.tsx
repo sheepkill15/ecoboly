@@ -1,7 +1,7 @@
 import store from './firebase/datastore';
 import {getDatabase} from './firebase/firebase';
 import React, {useState} from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View, FlatList } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTheme } from 'react-native-themed-styles';
 import { BookScreenNavigationProp, Subject } from './types';
@@ -18,7 +18,6 @@ import gazdasagtan from './res/gazdasagtan.png';
 
 import Image from './loaders/image';
 import Edit from './Edit';
-import ResponsiveList from './ResponsiveList';
 
 type Props = {
 	navigation: BookScreenNavigationProp;
@@ -115,7 +114,7 @@ const SubjectScreen = ({ navigation }: Props) => {
 					{tantargyak.map((value, id) => <Picker.Item label={value} value={value} key={id} />)}
 				</Picker>
 			</View>
-			<ResponsiveList
+			<FlatList
 				data={subjects.filter(x => (
 					x.tantargy === selTantargy || selTantargy === tantargyak[0]) &&
 					(x.osztaly === selOsztaly || selOsztaly === classes[0]))}
