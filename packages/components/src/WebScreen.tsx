@@ -7,9 +7,10 @@ type Props = {
   navigation: WebScreenNavigationProp;
 };
 
-const WebScreen = ({route, /*navigation */}: Props) => {
+const WebScreen = ({route, navigation}: Props) => {
   useEffect(() => {
     window.open(route.params.uri, '_blank');
+    navigation.goBack();
   })
 	return <></>
 };

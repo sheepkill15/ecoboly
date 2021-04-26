@@ -14,12 +14,15 @@
         "@react-navigation/material-top-tabs": "^5.3.14",
         "@react-navigation/native": "^5.9.3",
         "@react-navigation/stack": "^5.14.3",
+        "@types/react-responsive": "^8.0.2",
         "easy-peasy": "^5.0.3",
         "react-native-gesture-handler": "^1.10.3",
         "react-native-reanimated": "^2.0.0",
         "react-native-safe-area-context": "^3.2.0",
         "react-native-screens": "^2.18.1",
         "react-native-svg": "^12.1.0",
-        "react-native-tab-view": "^3.0.0"
+        "react-native-tab-view": "^3.0.0",
+        "react-reconciler": "^0.26.2",
+        "react-responsive": "^8.2.0"
     }
 }

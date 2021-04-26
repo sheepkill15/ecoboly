@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from 'react-native-themed-styles';
-import { Text, TouchableOpacity, Modal, View, TextInput, Image } from 'react-native';
+import { Text, TouchableOpacity, Modal, View, TextInput, Switch } from 'react-native';
 
 import { Theme } from './settings/styles';
 import SettingsStore from './settings/SettingsStore';
@@ -66,6 +66,12 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                         </View> : <></>}
                     {Object.keys(newData).map((key, i) => {
                         if (key === 'ref') return <View key={i}></View>;
+                        if(typeof newData[key] === 'boolean') {
+                            return <View style={styles.subjectDescription} key={i}>
+                                <Text style={styles.mediumText}>{key}</Text>
+                                <Switch value={newData[key]} onValueChange={(value) => updateData(value, key)} />
+                            </View>
+                        }
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
                             return <View style={styles.subjectDescription} key={i}>
                                 <Text style={styles.mediumText}>{key}</Text>

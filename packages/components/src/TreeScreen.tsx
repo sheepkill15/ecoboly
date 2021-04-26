@@ -1,5 +1,5 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react';
-import {TouchableOpacity, Text, FlatList, Linking, View} from 'react-native';
+import {TouchableOpacity, Text, Linking, View} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {useTheme} from 'react-native-themed-styles';
 import store from './firebase/datastore';
@@ -26,6 +26,8 @@ import OpenPdfExtern from './loaders/openpdfextern';
 import bookOpenWrapper from './loaders/bookopen';
 
 import Edit from './Edit';
+import { CodeRegExTeacher } from './constants';
+import ResponsiveList from './ResponsiveList';
 
 type Props = {
 	route: TreeScreenRouteProp;
@@ -51,6 +53,10 @@ const TreeScreen = ({route, navigation}: Props) => {
 	}, [subject])
 
 	const [styles, theme] = useTheme(Theme, currTheme);
+
+	// Admin
+	const userCode = store.useStoreState((state) => state.userCode);
+	const isAdmin = userCode.match(CodeRegExTeacher);
 
 	const refRBSheet: RefObject<RBSheet> = useRef(null);
 
@@ -240,8 +246,15 @@ const TreeScreen = ({route, navigation}: Props) => {
 		}).catch((e) => console.log(e));
 	}
 
-	const treeItem = ({item}: {item: Book | Test | Bac | Extra}) =>
-		!item.hidden ? (
+	const treeItem = ({item}: {item: Book | Test | Bac | Extra}) => {
+		const data: any = {'Név': item.nev, 'Link': item.link, 'Rejtve': item.hidden ?? false};
+		data['ref'] = item.type;
+		if(item.type === 'book') {
+			data['Méret'] = (item as Book).meret;
+			data['Első'] = (item as Book).elso;
+			data['Második'] = (item as Book).masodik;
+		}
+		return (isAdmin || !item.hidden) ? (
 			<>
 			<TouchableOpacity onPress={() => handleItemPress(item)}>
 				<View style={styles.treeItem}>
@@ -249,11 +262,13 @@ const TreeScreen = ({route, navigation}: Props) => {
 					<Text style={[styles.mediumText, {marginStart: 8}]}>{item.nev}</Text>
 				</View>
 			</TouchableOpacity>
-			<Edit variant={'Edit'} data={item} onSave={() => console.log('Press')} />
+			<Edit variant={'Edit'} data={data} onSave={() => console.log('Press')} />
 			</>
 		) : (
 			<></>
 		);
+	}
+		
 
 	const capitolItem = ({item}: {item: Capitol}) => {
 		return (
@@ -264,7 +279,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 				<Text style={styles.mediumText}>{item.nev}</Text>
 			</TouchableOpacity>
 			{selected === item.nev ? (
-				<><FlatList
+				<><ResponsiveList
 					style={styles.treeItemsList}
 					data={items}
 					renderItem={treeItem}
@@ -294,7 +309,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 	return (
 		<>
 			{capitols ? (
-				<FlatList
+				<ResponsiveList
 					data={capitols}
 					renderItem={capitolItem}
 					extraData={[selected, items]}
