@@ -134,7 +134,7 @@ android {
 
     defaultConfig {
         applicationId "com.aronniki.bolyaiprojekt"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 40
         versionName "2.0f"

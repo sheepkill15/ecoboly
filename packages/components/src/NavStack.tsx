@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './HomeScreen';
 import BookScreen from './BookScreen';
 import SettingsScreen from './SettingsScreen';
-import { Dimensions, View } from 'react-native';
+import {Dimensions, Image, ImageSourcePropType, View} from 'react-native';
 import store from './firebase/datastore';
 import { CodeRegExStudent, CodeRegExTeacher } from './constants';
 import LoginScreen from './LoginScreen';
@@ -97,7 +97,7 @@ const NavStack = () => {
 			try {
 				const value = await AsyncStorage.getItem('@settings_external');
 				if (value !== null) {
-					setIsExternal(value === 'true' ? true : false);
+					setIsExternal(value === 'true');
 				}
 			} catch (e) {
 				console.log(e);
@@ -107,7 +107,7 @@ const NavStack = () => {
 			try {
 				const value = await AsyncStorage.getItem('@settings_top_navigation');
 				if(value !== null) {
-					setTopNavigation(value === 'true' ? true : false);
+					setTopNavigation(value === 'true');
 				}
 			}
 			catch(e) {
@@ -131,17 +131,17 @@ const NavStack = () => {
 					tabBarOptions={{
 						activeTintColor: theme.activeText,
 						inactiveTintColor: theme.inactiveText,
-						showIcon: true,
-						showLabel: false,
-						style: {
-							flexShrink: 0,
-							alignItems: 'flex-end',
-							justifyContent: 'flex-end',
-						},
-						tabStyle: {
-							width: '5rem'
-						},
-						renderIndicator: () => <View style={{width: '100%', height: '100%' ,borderBottomWidth: 1, borderBottomColor: 'violet'}}></View>,
+					// 	showIcon: true,
+					// 	showLabel: false,
+					// 	style: {
+					// 		flexShrink: 0,
+					// 		alignItems: 'flex-end',
+					// 		justifyContent: 'flex-end',
+					// 	},
+					// 	tabStyle: {
+					// 		width: '5rem'
+					// 	},
+					// 	renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
 					}}
 					screenOptions={({route}) => ({
 						tabBarIcon: ({focused, color}) => {
@@ -149,7 +149,7 @@ const NavStack = () => {
 							if(route.name === 'Kezdőlap') {
 								iconName = focused ? 'home' : 'home-outline';
 							}
-							else if(route.name == 'Könyvek') {
+							else if(route.name === 'Könyvek') {
 								iconName = focused ? 'book' : 'book-outline';
 							}
 							else {

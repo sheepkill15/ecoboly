@@ -5,6 +5,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import SettingsStore from './settings/SettingsStore';
 import {Theme} from './settings/styles';
 import {SettingsScreenNavigationProp} from './types';
+import DataStore from "./firebase/datastore";
 
 type Props = {
   navigation: SettingsScreenNavigationProp;
@@ -29,6 +30,8 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 	const [pdfs, setPdfs] = useState(0);
 	const [isExternal, setIsExternal] = useState(false);
 	const [isOnTop, setIsOnTop] = useState(true);
+
+	const setUserCode = DataStore.useStoreActions((actions) => actions.setCode);
 
 	useEffect(() => {
 		if (currTheme === 'dark') {
@@ -60,6 +63,7 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 		setIsOnTop(currTopNavigation);
 	}, [currTopNavigation]);
 
+	const logout = () => setUserCode('');
 	const deleteAllPdfs = async () => {
 		const files = await RNFetchBlob.fs.ls(RNFetchBlob.fs.dirs.DocumentDir);
 		for (let i = 0; i < files.length; i++) {
@@ -121,6 +125,11 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 					<Text style={styles.mediumText}>Letöltött könyvek törlése</Text>
 				</TouchableOpacity>
 				<Text style={styles.mediumText}>({pdfs} pdf)</Text>
+			</View>
+			<View style={styles.divider}>
+				<TouchableOpacity style={styles.button} onPress={logout}>
+					<Text style={styles.mediumText}>Kijelentkezés</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);

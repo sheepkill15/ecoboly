@@ -33,6 +33,29 @@ type Props = {
 	navigation: TreeScreenNavigationProp;
 };
 
+const GetDbPath = (itemType: string, db: string): string => {
+	let dbString = '';
+	switch(itemType) {
+		case 'Könyv': {
+			dbString = `/Books/${db}/`;
+			break;
+		}
+		case 'Teszt': {
+			dbString = `/Tesztek/${db}/`;
+			break;
+		}
+		case 'Érettségi': {
+			dbString = `/Bac/${db}/`;
+			break;
+		}
+		case 'Extra': {
+			dbString = `/Extrak/${db}/`;
+			break;
+		}
+	}
+	return dbString;
+}
+
 const TreeScreen = ({route, navigation}: Props) => {
 
 	const [selected, setSelected] = useState('');
@@ -43,6 +66,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 		(actions) => actions.addCapitols,
 	);
 	const retrieveItems = store.useStoreActions((actions) => actions.addItems);
+	const setItems = store.useStoreActions((actions) => actions.setItems);
 	const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 	const externalReader = SettingsStore.useStoreState(
 		(state) => state.externalReader,
@@ -91,9 +115,9 @@ const TreeScreen = ({route, navigation}: Props) => {
 			for (let i = 0; i < books.length; i++) {
 				if (books[i]) {
 					books[i].type = 'book';
+					books[i].index = i;
 				}
 			}
-			console.log(books);
 			retrieveItems({capitol: selected, items: books});
 		};
 		const fetchTests = async () => {
@@ -106,6 +130,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			for (let i = 0; i < tests.length; i++) {
 				if (tests[i]) {
 					tests[i].type = 'test';
+					tests[i].index = i;
 				}
 			}
 			retrieveItems({capitol: selected, items: tests});
@@ -120,6 +145,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			for (let i = 0; i < bacs.length; i++) {
 				if (bacs[i]) {
 					bacs[i].type = 'bac';
+					bacs[i].index = i;
 				}
 			}
 			retrieveItems({capitol: selected, items: bacs});
@@ -134,6 +160,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			for (let i = 0; i < extras.length; i++) {
 				if (extras[i]) {
 					extras[i].type = 'extra';
+					extras[i].index = i;
 				}
 			}
 			retrieveItems({capitol: selected, items: extras});
@@ -221,37 +248,91 @@ const TreeScreen = ({route, navigation}: Props) => {
 		}
 		retrieveItems({capitol: data['ref'].db as string, items: [{...newItem}]});
 		delete newItem['type'];
-		let dbString: string = '';
-		switch(data.ref.type) {
-			case 'Könyv': {
-				dbString = `/Books/${data.ref.db}/`;
-				break;
-			}
-			case 'Teszt': {
-				dbString = `/Tesztek/${data.ref.db}/`;
-				break;
-			}
-			case 'Érettségi': {
-				dbString = `/Bac/${data.ref.db}/`;
-				break;
-			}
-			case 'Extra': {
-				dbString = `/Extrak/${data.ref.db}/`;
-				break;
-			}
-		}
+		const dbString = GetDbPath(data.ref.type, data['ref'].db);
+		
 		getDatabase().ref(dbString).once('value').then((snapshot) => {
 			getDatabase().ref(dbString + snapshot.numChildren()).set(newItem).catch((e) => console.log(e));
 		}).catch((e) => console.log(e));
 	}
+	const handleItemSave = async (data: {[id: string]: any}) => {
+		const map: {[id: string]: string} = {
+			'Könyv': 'book',
+			'Teszt': 'test',
+			'Érettségi': 'bac',
+			'Extra': 'extra'
+		}
+		const dbString = GetDbPath(data.ref.type, data.ref.db) + data.ref.index;
+		let newItem: Book | Test;
+		switch(data.ref.type) {
+			case 'Könyv': {
+				newItem = {
+					nev: data['Név'],
+					link: data['Link'],
+					meret: data['Méret'],
+					elso: parseInt(data['Első']),
+					masodik: parseInt(data['Második']),
+				} as Book;
+				break;
+			}
+			case 'Teszt': {
+				newItem = {
+					nev: data['Név'],
+					link: data['Link'],
+				} as Test;
+				break;
+			}
+			case 'Érettségi': {
+				newItem = {
+					nev: data['Név'],
+					link: data['Link'],
+				} as Bac;
+				break;
+			}
+			case 'Extra': {
+				newItem = {
+					nev: data['Név'],
+					link: data['Link'],
+				} as Extra;
+				break;
+			}
+			default: {
+				newItem = {
+					nev: data['Név'],
+					link: data['Link']
+				} as Extra;
+				break;
+			}
+		}
+		newItem['hidden'] = data['Rejtve'];
+		await getDatabase().ref(dbString).update(newItem).catch((e) => console.log(e));
+		const newItems = items;
+		newItem = {...newItem, type: map[data.ref.type], index: data.ref.index};
+		console.log(newItem.type);
+		console.log(data.ref.type);
+		console.log(map[data.ref.type]);
+		newItems[data.ref.realIndex] = newItem;
+		// console.log(newItem);
+		setItems({capitol: selected, items: newItems});
+	}
 
 	const treeItem = ({item}: {item: Book | Test | Bac | Extra}) => {
+		const map: {[id: string]: string} = {
+			'book': 'Könyv',
+			'test': 'Teszt',
+			'bac': 'Érettségi',
+			'extra': 'Extra'
+		}
 		const data: any = {'Név': item.nev, 'Link': item.link, 'Rejtve': item.hidden ?? false};
-		data['ref'] = item.type;
+		data['ref'] = {
+			index: item.index,
+			db: selected,
+			type: map[item.type ?? 'extra'],
+			realIndex: items.indexOf(item),
+		};
 		if(item.type === 'book') {
-			data['Méret'] = (item as Book).meret;
-			data['Első'] = (item as Book).elso;
-			data['Második'] = (item as Book).masodik;
+			data['Méret'] = (item as Book).meret.toString();
+			data['Első'] = (item as Book).elso.toString();
+			data['Második'] = (item as Book).masodik.toString();
 		}
 		return (isAdmin || !item.hidden) ? (
 			<>
@@ -261,7 +342,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 					<Text style={[styles.mediumText, {marginStart: 8}]}>{item.nev}</Text>
 				</View>
 			</TouchableOpacity>
-			<Edit variant={'Edit'} data={data} onSave={() => console.log('Press')} />
+			<Edit variant={'Edit'} data={data} onSave={handleItemSave} />
 			</>
 		) : (
 			<></>
@@ -318,7 +399,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			) : (
 				<Text>Betöltés...</Text>
 			)}
-			<BookElement currBook={currBook} styles={styles.itemList} refRBSheet={refRBSheet} onOpen={handleOpenBook} />
+			<BookElement currBook={currBook} styles={{...styles.itemList, alignItems: 'center'}} refRBSheet={refRBSheet} onOpen={handleOpenBook} />
 		</>
 	);
 };

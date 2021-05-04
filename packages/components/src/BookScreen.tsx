@@ -2,7 +2,7 @@ import store from './firebase/datastore';
 import {getDatabase} from './firebase/firebase';
 import React, {useState} from 'react';
 import { Text, TouchableOpacity, View, FlatList } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import Picker from './Picker';
 import { useTheme } from 'react-native-themed-styles';
 import { BookScreenNavigationProp, Subject } from './types';
 
@@ -80,8 +80,8 @@ const SubjectScreen = ({ navigation }: Props) => {
 					<View style={styles.subjectDescription}>
 						<Text style={styles.smallText}>Osztály: {item.osztaly}</Text>
 						<Text style={styles.smallText}>Tantárgy: {item.tantargy}</Text>
+						<Text style={styles.smallText}>{item.leiras}</Text>
 					</View>
-					<Text style={styles.smallText}>{item.leiras}</Text>
 				</View>
 			</TouchableOpacity>
 			<Edit variant={'Edit'} data={
@@ -107,12 +107,8 @@ const SubjectScreen = ({ navigation }: Props) => {
 	return (
 		<>
 			<View style={styles.buttonBox}>
-				<Picker style={styles.textInput} onValueChange={(value: string) => setSelOsztaly(value)}>
-					{classes.map((value, id) => <Picker.Item label={value} value={value} key={id} />)}
-				</Picker>
-				<Picker style={styles.textInput} onValueChange={(value: string) => setSelTantargy(value)}>
-					{tantargyak.map((value, id) => <Picker.Item label={value} value={value} key={id} />)}
-				</Picker>
+				<Picker style={styles.textInput} onValueChanged={(value: string) => setSelOsztaly(value)} items={classes} />
+				<Picker style={styles.textInput} onValueChanged={(value: string) => setSelTantargy(value)} items={tantargyak} />
 			</View>
 			<FlatList
 				data={subjects.filter(x => (

@@ -31,6 +31,9 @@ const store = createContextStore<StoreModel>({
 			state.items[payload.capitol] = payload.items;
 		}
 	}),
+	setItems: action((state, payload) => {
+		state.items[payload.capitol] = [...payload.items];
+	}),
 	setCode: action((state, payload) => {
 		state.userCode = payload;
 	}),

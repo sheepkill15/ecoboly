@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import store from './firebase/datastore';
 import {HomeScreenNavigationProp, Post} from './types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,7 +76,7 @@ const HomeScreen = (/*{navigation}: Props */) => {
 	};
 
 	return (
-		<>
+		<ScrollView>
 			<View style={styles.itemList}>
 				<Text style={styles.largeText}>Üdvözlet!</Text>
 				<Text style={styles.smallText}>A kódod: {code}</Text>
@@ -108,7 +108,7 @@ const HomeScreen = (/*{navigation}: Props */) => {
 				<Text style={styles.largeText}>Posztok</Text>
 				
 			</View>
-		</>
+		</ScrollView>
 	);
 };
 export default HomeScreen;

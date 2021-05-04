@@ -17,7 +17,6 @@ const dark = {
 };
 
 const styleSheetFactory = registerThemes({light, dark}, () => 'dark');
-
 const Theme = styleSheetFactory<Styles>((theme) => ({
 	itemList: {
 		backgroundColor: theme.backgroundColor,
@@ -28,13 +27,15 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		borderRadius: 16,
 	},
 	image: {
-		width: 200,
-		flexDirection: 'column',
+		width: '40%',
+		aspectRatio: 0.76,
+		resizeMode: 'contain',
 	},
 	smallText: {
 		margin: 4,
 		fontSize: 16,
 		color: theme.textColor,
+		flexWrap: 'wrap',
 	},
 	mediumText: {
 		margin: 4,
@@ -71,6 +72,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		flexBasis: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 	},
 	button: {
 		backgroundColor: theme.accentColor,
@@ -81,25 +83,24 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		alignItems: 'center',
 	},
 	textInput: {
-		width: '100%',
 		borderRadius: 8,
 		padding: 8,
 		margin: 4,
 		backgroundColor: theme.accentColor,
 		color: theme.textColor,
+		width: '100%',
 	},
 	buttonBox: {
 		padding: 4,
-		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+
 	},
 	subjectItem: {
 		backgroundColor: theme.backgroundColor,
-		padding: 20,
+		padding: 8,
 		marginVertical: 8,
 		marginHorizontal: 8,
-		alignItems: 'flex-start',
 		borderRadius: 16,
 		flexDirection: 'row',
 	},
@@ -108,22 +109,18 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		color: theme.textColor,
 		borderBottomWidth: 1,
 		borderBottomColor: theme.textColor,
+		width: '100%',
 	},
 	subjectContent: {
 		flexWrap: 'wrap',
-
-		marginStart: 16,
-		marginEnd: 24,
-		flexDirection: 'column',
-		flexBasis: '100%',
+		flexDirection: 'row',
 		flex: 1,
-
+		margin: 8,
 	},
 	subjectDescription: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		flexWrap: 'wrap',
-		width: '100%',
+		flexWrap: 'wrap'
 	},
 	editButton: {
 		position: 'absolute',

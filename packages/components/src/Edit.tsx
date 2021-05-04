@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, Modal, View, TextInput, Switch } from 'react-na
 
 import { Theme } from './settings/styles';
 import SettingsStore from './settings/SettingsStore';
-import { Picker } from '@react-native-picker/picker';
+import Picker from './Picker';
 
 import EditOutline from './res/edit-outline';
 import AddOutline from './res/add-outline';
@@ -48,7 +48,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
     return ( currCode.match(CodeRegExTeacher) ?
         <>
             <TouchableOpacity onPress={() => setEditVisible(true)} style={styles.editButton}>
-                {variant ? Icons[variant]({width: 32, fill: theme.activeText, stroke: theme.textColor}) : ''}
+                {variant ? Icons[variant]({width: 32, height: 32, fill: theme.activeText, stroke: theme.textColor}) : ''}
             </TouchableOpacity>
 
             <Modal animationType="slide"
@@ -56,16 +56,14 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                 visible={editModalVisible}
                 onDismiss={() => { setEditVisible(false) }}
                 onRequestClose={(() => { setEditVisible(false) })} >
-                <View style={styles.itemList}>
+                <View style={{...styles.button, backgroundColor: theme.backgroundColor}}>
                     <Text style={styles.mediumText}>{variant === 'Add' ? 'Hozzáadás' : 'Módosítás'}</Text>
                     {variant === 'Add' ? <View style={styles.subjectDescription} key={100}>
                             <Text style={styles.mediumText}>Típus</Text>
-                                <Picker onValueChange={(value) => updateData(value, 'ref-type')} style={styles.textInput}>
-                                    {['Könyv', 'Teszt', 'Extra', 'Érettségi'].map((dat: string, i: number) => <Picker.Item value={dat} label={dat} key={dat} />)}
-                                </Picker>
+                                <Picker onValueChanged={(value) => updateData(value, 'ref-type')} style={styles.textInput} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']} />
                         </View> : <></>}
                     {Object.keys(newData).map((key, i) => {
-                        if (key === 'ref') return <View key={i}></View>;
+                        if (key === 'ref') return <View key={i}/>;
                         if(typeof newData[key] === 'boolean') {
                             return <View style={styles.subjectDescription} key={i}>
                                 <Text style={styles.mediumText}>{key}</Text>
@@ -75,9 +73,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
                             return <View style={styles.subjectDescription} key={i}>
                                 <Text style={styles.mediumText}>{key}</Text>
-                                <Picker onValueChange={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} selectedValue={newData[key].current}>
-                                    {newData[key].array.map((dat: string, i: number) => <Picker.Item value={dat} label={dat} key={dat} />)}
-                                </Picker>
+                                <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} items={newData[key].array} />
                             </View>
                         }
                         return <View style={styles.subjectDescription} key={i}>
@@ -85,7 +81,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                             <TextInput onChangeText={(text) => updateData(text, key)} value={newData[key]} style={styles.textInput} />
                         </View>
                     })}
-                    <View style={styles.divider}>
+                    <View style={styles.buttonBox}>
                         <TouchableOpacity style={styles.button}
                             onPress={() => { onSave(newData); setEditVisible(false); }}>
                             <Text style={styles.mediumText}>Mentés</Text>

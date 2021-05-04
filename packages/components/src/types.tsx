@@ -108,6 +108,7 @@ export type StoreModel = {
     StoreModel,
     {capitol: string; items: Array<Bac | Test | Extra | Book>}
   >;
+  setItems: Action<StoreModel, {capitol: string; items: Array<Bac | Test | Extra | Book>}>;
   setCode: Action<StoreModel, string>;
   setDownloading: Action<StoreModel, {path: string; downloading: boolean}>;
   setExists: Action<StoreModel, {path: string; exists: boolean}>;

@@ -75,7 +75,7 @@ const BottomBook = ({
 	const [styles, theme] = useTheme(Theme, currTheme);
 
 	return (
-		<View style={styles.image}>
+		<View style={styles.subjectTitle}>
 			<Text style={styles.mediumText}>{book.nev}</Text>
 			{bookState && !bookState.exists ? (
 				<>
