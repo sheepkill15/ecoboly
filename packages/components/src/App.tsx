@@ -1,8 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
-    Dimensions,
-    StatusBar, View,
+    StatusBar,
 } from 'react-native';
 import NavStack from './NavStack';
 
@@ -12,7 +11,6 @@ import SettingsStore from './settings/SettingsStore';
 const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <SettingsStore.Provider>
         <DataStore.Provider>
                 <NavStack />

@@ -8,3 +8,5 @@ packages/components/src/constants.tsx
 packages/mobile/android/app/google-services.json
 packages/mobile/android/gradle.properties
 packages/mobile/android/app/AronNikiCucc.jks
+.gradle/
+.idea/

@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './HomeScreen';
 import BookScreen from './BookScreen';
 import SettingsScreen from './SettingsScreen';
-import {Dimensions, Image, ImageSourcePropType, View} from 'react-native';
+import {Dimensions, Image, ImageSourcePropType, StatusBar, View} from 'react-native';
 import store from './firebase/datastore';
 import { CodeRegExStudent, CodeRegExTeacher } from './constants';
 import LoginScreen from './LoginScreen';
@@ -121,6 +121,7 @@ const NavStack = () => {
 	}, [retrieveCode, setSelectedTheme, setIsExternal]);
 	return isCode !== null ? (
 		<View style={{width: '100%', height: '100%', backgroundColor: theme.backgroundColor}}>
+			<StatusBar barStyle={currTheme === 'light' ? 'dark-content' : 'light-content'} backgroundColor={theme.backgroundColor} />
 			<NavigationContainer
 				theme={currTheme === 'dark' ? DarkTheme : DefaultTheme}>
 				<Tab.Navigator

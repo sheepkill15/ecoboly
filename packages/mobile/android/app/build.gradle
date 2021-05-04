@@ -136,8 +136,8 @@ android {
         applicationId "com.aronniki.bolyaiprojekt"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 40
-        versionName "2.0f"
+        versionCode 50
+        versionName "3.0f"
         multiDexEnabled true
     }
     splits {
@@ -205,6 +205,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.multidex:multidex:2.0.1'  
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation "androidx.annotation:annotation:1.1.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
