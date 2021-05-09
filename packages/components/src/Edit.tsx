@@ -56,11 +56,13 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                 visible={editModalVisible}
                 onDismiss={() => { setEditVisible(false) }}
                 onRequestClose={(() => { setEditVisible(false) })} >
-                <View style={{...styles.button, backgroundColor: theme.backgroundColor}}>
+                <View style={{...styles.subjectTitle, backgroundColor: theme.backgroundColor}}>
                     <Text style={styles.mediumText}>{variant === 'Add' ? 'Hozzáadás' : 'Módosítás'}</Text>
-                    {variant === 'Add' ? <View style={styles.subjectDescription} key={100}>
+                    {variant === 'Add' ? <View style={styles.subjectTitle} key={100}>
                             <Text style={styles.mediumText}>Típus</Text>
-                                <Picker onValueChanged={(value) => updateData(value, 'ref-type')} style={styles.textInput} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']} />
+                                <View>
+                                    <Picker onValueChanged={(value) => updateData(value, 'ref-type')} style={styles.textInput} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']} />
+                                </View>
                         </View> : <></>}
                     {Object.keys(newData).map((key, i) => {
                         if (key === 'ref') return <View key={i}/>;
@@ -71,8 +73,8 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                             </View>
                         }
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
-                            return <View style={styles.subjectDescription} key={i}>
-                                <Text style={styles.mediumText}>{key}</Text>
+                            return <View style={{...styles.subjectTitle, zIndex: i}} key={i}>
+                                <Text style={{...styles.mediumText, zIndex: 0}}>{key}</Text>
                                 <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} items={newData[key].array} />
                             </View>
                         }

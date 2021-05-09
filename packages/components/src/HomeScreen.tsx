@@ -7,8 +7,7 @@ import {useTheme} from 'react-native-themed-styles';
 import {Theme} from './settings/styles';
 import SettingsStore from './settings/SettingsStore';
 import {getDatabase} from './firebase/firebase';
-
-import { TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob';
+import AdBanner from './loaders/ads';
 
 type Props = {
     navigation: HomeScreenNavigationProp;
@@ -78,7 +77,6 @@ const HomeScreen = (/*{navigation}: Props */) => {
         AsyncStorage.setItem('@last_question', question.id.toString());
         setAlreadyQ(true);
     };
-    const adRef = useRef<AdMobBanner>(null);
 
 
     return (
@@ -115,16 +113,7 @@ const HomeScreen = (/*{navigation}: Props */) => {
 
             </View>
             <View style={{alignItems: 'center'}}>
-                <BannerAd
-                    unitId='ca-app-pub-6729129195115808/2443797298'
-                    size={BannerAdSize.SMART_BANNER}
-                    requestOptions={{
-                        requestNonPersonalizedAdsOnly: true,}}
-                    onAdLoaded={() => {
-                        console.log('Advert loaded');}}
-                    onAdFailedToLoad={(error) => {
-                        console.error('Advert failed to load: ', error);}}
-                 onAdClosed={() => console.log('closed!')} onAdLeftApplication={() => console.log('left!')} onAdOpened={() => console.log('opened!')}/>
+                <AdBanner />
              </View>
 
         </ScrollView>

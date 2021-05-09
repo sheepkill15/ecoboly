@@ -106,7 +106,7 @@ const SubjectScreen = ({ navigation }: Props) => {
 	);
 	return (
 		<>
-			<View style={styles.buttonBox}>
+			<View style={{...styles.buttonBox, zIndex: 1000}}>
 				<Picker style={styles.textInput} onValueChanged={(value: string) => setSelOsztaly(value)} items={classes} />
 				<Picker style={styles.textInput} onValueChanged={(value: string) => setSelTantargy(value)} items={tantargyak} />
 			</View>

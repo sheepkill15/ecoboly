@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^13.1.5",
@@ -45,7 +46,7 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-react-native-web": "^0.16.1",
+    "babel-plugin-react-native-web": "^0.16.2",
     "customize-cra": "^1.0.0",
     "eslint": "^7.21.0",
     "react-app-rewired": "^2.1.8",
