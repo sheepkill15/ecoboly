@@ -8,6 +8,7 @@
         "@react-native-community/masked-view": "^0.1.10",
         "@react-native-community/progress-bar-android": "^1.0.4",
         "@react-native-community/progress-view": "^1.2.4",
+        "@react-navigation/core": "^5.15.3",
         "@react-navigation/material-top-tabs": "^5.3.14",
         "@react-navigation/native": "^5.9.3",
         "@react-navigation/stack": "^5.14.3",
@@ -20,6 +21,7 @@
         "react-native-svg": "^12.1.0",
         "react-native-tab-view": "^3.0.0",
         "react-native-themed-styles": "^0.0.4",
+        "react-navigation": "^4.4.4",
         "react-reconciler": "^0.26.2"
     }
 }
