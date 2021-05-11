@@ -64,7 +64,7 @@ module.exports = {
   output: {
     filename: 'assets/js/[name].[contenthash:8].js',
     path: path.resolve(appDirectory, 'dist'),
-    publicPath: '/'
+    publicPath: ''
   },
 
   // ...the rest of your config
