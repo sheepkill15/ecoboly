@@ -10,3 +10,4 @@ packages/mobile/android/gradle.properties
 packages/mobile/android/app/AronNikiCucc.jks
 .gradle/
 .idea/
+packages/web/dist
