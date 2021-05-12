@@ -55,6 +55,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-react-native-web": "^0.16.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "copy-webpack-plugin": "^8.1.1",
     "css-loader": "^5.2.4",
     "customize-cra": "^1.0.0",
     "eslint": "^7.5.0",

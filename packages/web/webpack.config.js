@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+
 require("@babel/polyfill"); // necesarry
 
 const appDirectory = path.resolve(__dirname, './');
@@ -96,6 +98,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(appDirectory, 'public/index.html'),
       inject: true
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'public', to: '', filter: (resourcePath) => {
+            return !resourcePath.includes('index.html');
+          }
+        }
+      ]
     })
   ],
   optimization: {
@@ -120,9 +131,12 @@ module.exports = {
     ],
     splitChunks: {
       chunks: 'all',
-      minSize: 0,
-      maxInitialRequests: 20,
-      maxAsyncRequests: 20,
+      minSize: 20000,
+      maxInitialRequests: 30,
+      maxAsyncRequests: 30,
+      minRemainingSize: 0,
+      minChunks: 1,
+      enforceSizeThreshold: 50000,
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
@@ -131,11 +145,16 @@ module.exports = {
               /[\\/]node_modules[\\/](.*?)([\\/]|$)/
             )[1];
             return `${cacheGroupKey}.${packageName.replace("@", "")}`;
-          }
+          },
+          reuseExistingChunk: true
         },
         common: {
           minChunks: 2,
-          priority: -10
+          priority: -10,
+          reuseExistingChunk: true,
+          test: /[\\/]components[\\/]src[\\/]/,
+          chunks: 'all',
+          minSize: 0
         }
       }
     },
