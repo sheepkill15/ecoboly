@@ -7,7 +7,7 @@
       "dom"
     ],
     "jsx": "react-jsx",
-    "noEmit": true,
+    "noEmit": false,
     "strict": true,
     "noImplicitAny": false,
     "noUnusedLocals": false,
