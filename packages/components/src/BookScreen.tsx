@@ -77,7 +77,7 @@ const SubjectScreen = ({ navigation }: Props) => {
 				<Image imageStyle={styles.image} source={images[item.kep]} />
 				<View style={styles.subjectContent}>
 					<Text style={styles.subjectTitle}>{item.nev}</Text>
-					<View style={styles.subjectDescription}>
+					<View style={{...styles.subjectTitle, borderBottomWidth: 0}}>
 						<Text style={styles.smallText}>Osztály: {item.osztaly}</Text>
 						<Text style={styles.smallText}>Tantárgy: {item.tantargy}</Text>
 						<Text style={styles.smallText}>{item.leiras}</Text>

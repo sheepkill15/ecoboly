@@ -58,7 +58,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                 onRequestClose={(() => { setEditVisible(false) })} >
                 <View style={{...styles.subjectTitle, backgroundColor: theme.backgroundColor}}>
                     <Text style={styles.mediumText}>{variant === 'Add' ? 'Hozzáadás' : 'Módosítás'}</Text>
-                    {variant === 'Add' ? <View style={styles.subjectTitle} key={100}>
+                    {variant === 'Add' ? <View style={{...styles.subjectTitle, zIndex: 10}} key={100}>
                             <Text style={styles.mediumText}>Típus</Text>
                                 <View>
                                     <Picker onValueChanged={(value) => updateData(value, 'ref-type')} style={styles.textInput} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']} />
@@ -73,8 +73,8 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                             </View>
                         }
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
-                            return <View style={{...styles.subjectTitle, zIndex: i}} key={i}>
-                                <Text style={{...styles.mediumText, zIndex: 0}}>{key}</Text>
+                            return <View style={{...styles.subjectContent, zIndex: 100 - i}} key={i}>
+                                <Text style={{...styles.mediumText, zIndex: -10}}>{key}</Text>
                                 <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} items={newData[key].array} />
                             </View>
                         }
