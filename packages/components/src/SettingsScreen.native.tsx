@@ -7,6 +7,7 @@ import {Theme} from './settings/styles';
 import {SettingsScreenNavigationProp} from './types';
 import DataStore from "./firebase/datastore";
 import {BannerAd, BannerAdSize, TestIds} from "@react-native-firebase/admob";
+import AdBanner from "./loaders/ads";
 
 type Props = {
   navigation: SettingsScreenNavigationProp;
@@ -133,16 +134,7 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 				</TouchableOpacity>
 			</View>
 			<View style={{alignItems: 'center'}}>
-				<BannerAd
-					unitId='ca-app-pub-6729129195115808/2443797298'
-					size={BannerAdSize.SMART_BANNER}
-					requestOptions={{
-						requestNonPersonalizedAdsOnly: true,}}
-					onAdLoaded={() => {
-						console.log('Advert loaded');}}
-					onAdFailedToLoad={(error) => {
-						console.error('Advert failed to load: ', error);}}
-					onAdClosed={() => console.log('closed!')} onAdLeftApplication={() => console.log('left!')} onAdOpened={() => console.log('opened!')}/>
+				<AdBanner />
 			</View>
 		</View>
 	);

@@ -2,10 +2,8 @@ import React from 'react';
 import { TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 
 const AdBanner = () => <BannerAd
-unitId='ca-app-pub-6729129195115808/2443797298'
+unitId='ca-app-pub-5540832875853339/5827889674'
 size={BannerAdSize.SMART_BANNER}
-requestOptions={{
-    requestNonPersonalizedAdsOnly: true,}}
 onAdLoaded={() => {
     console.log('Advert loaded');}}
 onAdFailedToLoad={(error) => {
