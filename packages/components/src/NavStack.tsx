@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreen from './HomeScreen';
 import BookScreen from './BookScreen';
 import SettingsScreen from './SettingsScreen';
-import {Dimensions, Image, ImageSourcePropType, StatusBar, View} from 'react-native';
+import {Dimensions, StatusBar, View, Platform} from 'react-native';
 import store from './firebase/datastore';
 import { CodeRegExStudent, CodeRegExTeacher } from './constants';
 import LoginScreen from './LoginScreen';
@@ -132,17 +132,18 @@ const NavStack = () => {
 					tabBarOptions={{
 						activeTintColor: theme.activeText,
 						inactiveTintColor: theme.inactiveText,
-						// showIcon: true,
-						// showLabel: false,
-						// style: {
-						// 	flexShrink: 0,
-						// 	alignItems: 'flex-end',
-						// 	justifyContent: 'flex-end',
-						// },
-						// tabStyle: {
-						// 	width: '5rem'
-						// },
-						// renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
+						...Platform.select({web: {showIcon: true,
+							showLabel: false,
+							style: {
+								flexShrink: 0,
+								alignItems: 'flex-end',
+								justifyContent: 'flex-end',
+							},
+							tabStyle: {
+								width: '5rem'
+							},
+							renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
+						}})
 					}}
 					screenOptions={({route}) => ({
 						tabBarIcon: ({focused, color}) => {

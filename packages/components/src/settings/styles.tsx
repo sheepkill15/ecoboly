@@ -1,5 +1,6 @@
 import {Styles} from '../types';
 import {registerThemes} from 'react-native-themed-styles';
+import {Platform} from 'react-native';
 
 const light = {
 	backgroundColor: '#fff',
@@ -27,7 +28,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		borderRadius: 16,
 	},
 	image: {
-		width: '40%',
+		...Platform.select({web: {width: '10%'}, native: {width: '40%'}}),
 		aspectRatio: 0.76,
 		resizeMode: 'contain',
 	},
