@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import store from './firebase/datastore';
 import {HomeScreenNavigationProp, Post} from './types';
@@ -14,7 +14,6 @@ type Props = {
 };
 const HomeScreen = (/*{navigation}: Props */) => {
     const code = store.useStoreState((state) => state.userCode);
-    const retrieveCode = store.useStoreActions((actions) => actions.setCode);
 
     const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 
@@ -22,11 +21,6 @@ const HomeScreen = (/*{navigation}: Props */) => {
 
     const [question, setQuestion] = useState({q: 'Betöltés...', id: -1});
     const [alreadyQ, setAlreadyQ] = useState(false);
-
-    const logout = async () => {
-        await AsyncStorage.setItem('@user_code', '').catch((e) => console.log(e));
-        retrieveCode('');
-    };
 
     useEffect(() => {
         const fetchLastQuestion = async () => {
@@ -51,6 +45,7 @@ const HomeScreen = (/*{navigation}: Props */) => {
     }, []);
 
     const handleYes = () => {
+        if(question.id < 0) return;
         saveWas();
         console.log('Fetch yes!');
         const ref = getDatabase().ref(`/posts/${question.id}/valaszIgen`);
@@ -62,6 +57,7 @@ const HomeScreen = (/*{navigation}: Props */) => {
         });
     };
     const handleNo = () => {
+        if(question.id < 0) return;
         saveWas();
         console.log('Fetch no!');
         const ref = getDatabase().ref(`/posts/${question.id}/valaszNem`);
@@ -78,18 +74,11 @@ const HomeScreen = (/*{navigation}: Props */) => {
         setAlreadyQ(true);
     };
 
-
     return (
         <ScrollView>
             <View style={styles.itemList}>
                 <Text style={styles.largeText}>Üdvözlet!</Text>
                 <Text style={styles.smallText}>A kódod: {code}</Text>
-                {/* <Text style={styles.smallText}>
-          Ha ki szeretnél lépni, nyomd meg az alábbi gombot:
-				</Text>
-				<TouchableOpacity style={styles.button} onPress={logout}>
-					<Text style={styles.mediumText}>Kilépés</Text>
-				</TouchableOpacity> */}
             </View>
             <View style={styles.itemList}>
                 <Text style={styles.largeText}>Legutolsó kérdés</Text>

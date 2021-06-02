@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from 'react';
 import DropdownPicker from 'react-native-dropdown-picker';
-import {View, ViewStyle} from "react-native";
+import {View, ViewStyle, Platform} from "react-native";
 import SettingsStore from './settings/SettingsStore';
 import { useTheme } from 'react-native-themed-styles';
 import { Theme } from './settings/styles';
@@ -16,13 +16,13 @@ const Picker = ({items, onValueChanged, style}: {items: Array<string>; onValueCh
 
     const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 
-    const [styles, theme] = useTheme(Theme, currTheme);
+    const [, theme] = useTheme(Theme, currTheme);
 
     useEffect(() => {
         onValueChanged(value);
     }, [value]);
 
-    return <View style={{flex: 1}}><DropdownPicker style={{backgroundColor: theme.accentColor}} showTickIcon={false} theme={currTheme.toUpperCase()} searchable={false} open={open} value={value} items={ownItems} setValue={setValue} setItems={setItems} setOpen={setOpen} /></View>
+    return <View style={{flex: 1}}><DropdownPicker style={Platform.select({web: {backgroundColor: theme.accentColor}})} showTickIcon={Platform.select({web: false, native: true})} theme={currTheme.toUpperCase()} searchable={false} open={open} value={value} items={ownItems} setValue={setValue} setItems={setItems} setOpen={setOpen} /></View>
 }
 
 export default Picker;

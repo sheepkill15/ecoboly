@@ -36,11 +36,15 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 		setIsOnTop(currTopNavigation);
 	}, [currTopNavigation]);
 
-	const handleSwitchTheme = (value: boolean) => {
-		setTheme(value ? 'dark' : 'light');
+	const handleSwitchTheme = (value?: boolean | undefined) => {
+		if(typeof value === 'boolean') {
+			setTheme(value ? 'dark' : 'light');
+		}
 	};
-	const handleSwitchOnTop = (value: boolean) => {
-		setTopNavigation(value);
+	const handleSwitchOnTop = (value?: boolean | undefined) => {
+		if(typeof value === 'boolean') {
+			setTopNavigation(value);
+		}
 	}
 
 	const logout = () => setUserCode('');

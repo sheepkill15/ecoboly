@@ -73,7 +73,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                             </View>
                         }
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
-                            return <View style={{...styles.subjectContent, zIndex: 100 - i}} key={i}>
+                            return <View style={{...styles.subjectTitle, zIndex: 100 - i}} key={i}>
                                 <Text style={{...styles.mediumText, zIndex: -10}}>{key}</Text>
                                 <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} items={newData[key].array} />
                             </View>

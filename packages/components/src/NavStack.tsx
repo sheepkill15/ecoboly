@@ -132,17 +132,17 @@ const NavStack = () => {
 					tabBarOptions={{
 						activeTintColor: theme.activeText,
 						inactiveTintColor: theme.inactiveText,
-						showIcon: true,
-						showLabel: false,
-						style: {
-							flexShrink: 0,
-							alignItems: 'flex-end',
-							justifyContent: 'flex-end',
-						},
-						tabStyle: {
-							width: '5rem'
-						},
-						renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
+						// showIcon: true,
+						// showLabel: false,
+						// style: {
+						// 	flexShrink: 0,
+						// 	alignItems: 'flex-end',
+						// 	justifyContent: 'flex-end',
+						// },
+						// tabStyle: {
+						// 	width: '5rem'
+						// },
+						// renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
 					}}
 					screenOptions={({route}) => ({
 						tabBarIcon: ({focused, color}) => {

@@ -27,7 +27,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		borderRadius: 16,
 	},
 	image: {
-		width: '10%',
+		width: '40%',
 		aspectRatio: 0.76,
 		resizeMode: 'contain',
 	},

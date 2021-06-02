@@ -1,8 +1,5 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {
-    StatusBar,
-} from 'react-native';
 import NavStack from './NavStack';
 
 import DataStore from './firebase/datastore';
