@@ -15,10 +15,8 @@ export default ({currBook, styles, refRBSheet, onOpen}: {currBook: Book | undefi
 				customStyles={{
 					container: styles,
 				}}>
-				{currBook ? (
+				{currBook && (
 					<BottomBook onOpen={onOpen} book={currBook as Book} />
-				) : (
-					<></>
 				)}
 			</RBSheet>
     )

@@ -60,14 +60,14 @@ const SubjectScreen = ({ navigation }: Props) => {
 	};
 
 	const handleEdit = async (data: {[id: string]: any}) => {
-		const newSubjects = subjects;
+		const newSubjects = [...subjects];
 		newSubjects[data.ref.index] = subjects[data.ref.index];
 		newSubjects[data.ref.index].nev = data['Név'] ?? '';
 		newSubjects[data.ref.index].leiras = data['Leírás'] ?? '';
 		newSubjects[data.ref.index].osztaly = data['Osztály'].current;
 		newSubjects[data.ref.index].tantargy = data['Tantárgy'].current;
-		getDatabase().ref(data.ref.db).update(newSubjects[data.ref.index]);
-		setSubjects([...newSubjects]);
+		getDatabase().ref(data.ref.db).update(newSubjects[data.ref.index]).then(() => console.log('updated!'));
+		setSubjects(newSubjects);
 	}
 
 	const subjectItem = ({ item }: { item: Subject }) => (

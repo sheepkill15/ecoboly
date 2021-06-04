@@ -13,4 +13,5 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-export const getDatabase = () =>  firebase.database();
+const appDatabase = firebase.database();
+export const getDatabase = () =>  appDatabase;

@@ -22,32 +22,16 @@ const store = createContextStore<StoreModel>({
 		if (!payload.items) {
 			return;
 		}
-		if (state.items[payload.capitol]) {
-			state.items[payload.capitol] = [
-				...state.items[payload.capitol],
-				...payload.items,
-			];
-		} else {
-			state.items[payload.capitol] = payload.items;
-		}
-	}),
-	setItems: action((state, payload) => {
-		state.items[payload.capitol] = [...payload.items];
+		state.items[payload.capitol] = [
+			...(state.items[payload.capitol] ? state.items[payload.capitol] : []) ,
+			...payload.items,
+		];
 	}),
 	setCode: action((state, payload) => {
 		state.userCode = payload;
 	}),
-	setDownloading: action((state, payload) => {
-		if (!state.bookStates[payload.path]) {
-			state.bookStates[payload.path] = {downloading: false, exists: false};
-		}
-		state.bookStates[payload.path].downloading = payload.downloading;
-	}),
-	setExists: action((state, payload) => {
-		if (!state.bookStates[payload.path]) {
-			state.bookStates[payload.path] = {downloading: false, exists: false};
-		}
-		state.bookStates[payload.path].exists = payload.exists;
+	setBookState: action((state, payload) => {
+		state.bookStates[payload.path] = payload.state;
 	}),
 });
 

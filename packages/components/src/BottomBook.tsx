@@ -17,42 +17,48 @@ const BottomBook = ({
 	const targetDir = RNFetchBlob.fs.dirs.DocumentDir + `/${book.nev}`;
 
 	const bookState = store.useStoreState((state) => state.bookStates[targetDir]);
-	const setDownloading = store.useStoreActions(
-		(actions) => actions.setDownloading,
+	const setBookState = store.useStoreActions(
+		(actions) => actions.setBookState,
 	);
-	const setExists = store.useStoreActions((actions) => actions.setExists);
 
 	const [page, setPage] = useState(0);
 
 	useEffect(() => {
+
 		const checkIfExists = async () => {
+			if(bookState.downloading) return;
 			const ex = await RNFetchBlob.fs.exists(targetDir);
-			setExists({
+			setBookState({
 				path: targetDir,
-				exists: ex,
+				state: {
+					exists: ex,
+					downloading: false,
+				},
 			});
 		};
 		checkIfExists();
-	}, [targetDir, setExists]);
+	}, []);
 
 	const handleDownload = async () => {
 		if (bookState.downloading) {
 			return;
 		}
-		setDownloading({
+		setBookState({
 			path: targetDir,
-			downloading: true,
+			state: {
+				exists: false,
+				downloading: true
+			},
 		});
 		await RNFetchBlob.config({
 			path: targetDir,
 		}).fetch('GET', book.link);
-		setDownloading({
+		setBookState({
 			path: targetDir,
-			downloading: false,
-		});
-		setExists({
-			path: targetDir,
-			exists: true,
+			state: {
+				exists: true,
+				downloading: false
+			},
 		});
 	};
 
@@ -77,18 +83,7 @@ const BottomBook = ({
 	return (
 		<View style={styles.subjectTitle}>
 			<Text style={styles.mediumText}>{book.nev}</Text>
-			{bookState && !bookState.exists ? (
-				<>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={() => handleDownload()}>
-						<Text style={styles.mediumText}>
-							{bookState.downloading ? '...' : 'Letöltés'}
-						</Text>
-					</TouchableOpacity>
-					<Text style={styles.smallText}>Méret: {book.meret} MB</Text>
-				</>
-			) : (
+			{bookState?.exists ? (
 				<>
 					<TouchableOpacity
 						style={styles.button}
@@ -110,6 +105,17 @@ const BottomBook = ({
               ({book.elso} - {book.masodik})
 						</Text>
 					</View>
+				</>
+			) : (
+				<>
+					<TouchableOpacity
+						style={styles.button}
+						onPress={() => handleDownload()}>
+						<Text style={styles.mediumText}>
+							{bookState.downloading ? '...' : 'Letöltés'}
+						</Text>
+					</TouchableOpacity>
+					<Text style={styles.smallText}>Méret: {book.meret} MB</Text>
 				</>
 			)}
 		</View>

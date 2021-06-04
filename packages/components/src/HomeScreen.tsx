@@ -30,10 +30,10 @@ const HomeScreen = (/*{navigation}: Props */) => {
             const savedId = await AsyncStorage.getItem('@last_question').catch((e) =>
                 console.log(e),
             );
-            if (!savedId || parseInt(savedId, 10) !== values.length - 1) {
-                console.log('fail')
-            } else {
+            if (parseInt(savedId ?? '-1', 10) === values.length - 1) {
                 setAlreadyQ(true);
+            } else {
+                console.log('fail')
             }
             setQuestion({
                 q: values[values.length - 1].kerdes,

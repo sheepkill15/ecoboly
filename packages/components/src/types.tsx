@@ -54,40 +54,28 @@ export type Capitol = {
   nev: string;
 };
 
-export type Test = {
-  hidden: boolean | undefined;
+export interface Item {
   link: string;
   nev: string;
+  hidden: boolean | undefined;
   index: number | undefined;
   type: string | undefined;
-};
+}
 
-export type Book = {
+export interface Test extends Item {
+}
+
+export interface Book extends Item {
   elso: number;
   masodik: number;
   meret: number;
-  link: string;
-  nev: string;
-  hidden: boolean | undefined;
-  index: number | undefined;
-  type: string | undefined;
-};
+}
 
-export type Bac = {
-  nev: string;
-  link: string;
-  hidden: boolean | undefined;
-  index: number | undefined;
-  type: string | undefined;
-};
+export interface Bac extends Item {
+}
 
-export type Extra = {
-  nev: string;
-  link: string;
-  hidden: boolean | undefined;
-  index: number | undefined;
-  type: string | undefined;
-};
+export interface Extra extends Item {
+}
 
 export type Post = {
   kerdes: string;
@@ -95,12 +83,17 @@ export type Post = {
   valaszNem: number | undefined;
 };
 
+export type BookState = {
+  exists: boolean;
+  downloading: boolean;
+}
+
 export type StoreModel = {
   subjects: Subject[];
   capitols: {[id: string]: Capitol[]};
   items: {[id: string]: Array<Bac | Test | Extra | Book>};
   userCode: string;
-  bookStates: {[id: string]: {downloading: boolean; exists: boolean}};
+  bookStates: {[id: string]: BookState};
 
   addSubjects: Action<StoreModel, Subject[]>;
   addCapitols: Action<StoreModel, {subject: string; capitols: Capitol[]}>;
@@ -108,10 +101,8 @@ export type StoreModel = {
     StoreModel,
     {capitol: string; items: Array<Bac | Test | Extra | Book>}
   >;
-  setItems: Action<StoreModel, {capitol: string; items: Array<Bac | Test | Extra | Book>}>;
   setCode: Action<StoreModel, string>;
-  setDownloading: Action<StoreModel, {path: string; downloading: boolean}>;
-  setExists: Action<StoreModel, {path: string; exists: boolean}>;
+  setBookState: Action<StoreModel, {path: string; state: BookState}>;
 };
 
 export type SettingsModel = {

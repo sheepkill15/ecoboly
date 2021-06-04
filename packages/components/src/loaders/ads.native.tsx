@@ -1,5 +1,5 @@
 import React from 'react';
-import { TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob';
+import { BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 
 const AdBanner = () => <BannerAd
 unitId='ca-app-pub-5540832875853339/5827889674'

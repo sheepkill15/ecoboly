@@ -6,7 +6,6 @@ import SettingsStore from './settings/SettingsStore';
 import {Theme} from './settings/styles';
 import {SettingsScreenNavigationProp} from './types';
 import DataStore from "./firebase/datastore";
-import {BannerAd, BannerAdSize, TestIds} from "@react-native-firebase/admob";
 import AdBanner from "./loaders/ads";
 
 type Props = {
@@ -77,17 +76,22 @@ const SettingsScreen = (/*{navigation}: Props */) => {
 		}
 	};
 
-	const handleSwitchTheme = (value: boolean) => {
-		setTheme(value ? 'dark' : 'light');
+	const handleSwitchTheme = (value?: boolean | undefined) => {
+		if(typeof value === 'boolean') {
+			setTheme(value ? 'dark' : 'light');
+		}
+	};
+	const handleSwitchOnTop = (value?: boolean | undefined) => {
+		if(typeof value === 'boolean') {
+			setTopNavigation(value);
+		}
 	};
 
-	const handleSwitchExternal = (value: boolean) => {
-		setExternalReader(value);
+	const handleSwitchExternal = (value?: boolean | undefined) => {
+		if(typeof value === 'boolean') {
+			setExternalReader(value);
+		}
 	};
-    
-	const handleSwitchOnTop = (value: boolean) => {
-		setTopNavigation(value);
-	}
 
 	const handleDeleteAllPdf = () => {
 		Alert.alert(

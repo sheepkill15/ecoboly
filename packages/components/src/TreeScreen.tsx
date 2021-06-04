@@ -11,6 +11,7 @@ import {
 	Capitol,
 	Extra,
 	Test,
+	Item,
 	TreeScreenNavigationProp,
 	TreeScreenRouteProp,
 } from './types';
@@ -66,7 +67,6 @@ const TreeScreen = ({route, navigation}: Props) => {
 		(actions) => actions.addCapitols,
 	);
 	const retrieveItems = store.useStoreActions((actions) => actions.addItems);
-	const setItems = store.useStoreActions((actions) => actions.setItems);
 	const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 	const externalReader = SettingsStore.useStoreState(
 		(state) => state.externalReader,
@@ -102,7 +102,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			fetchCapitols();
 			console.log('Fetch capitols!');
 		}
-	}, [capitols, retrieveCapitols, subject]);
+	}, [subject]);
 
 	useEffect(() => {
 		const fetchBooks = async () => {
@@ -172,7 +172,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			fetchExtras();
 			console.log('Fetch books, tests, bacs, extras!');
 		}
-	}, [selected, items, retrieveItems]);
+	}, [selected]);
 
 	const handlePress = (fejezet: string) => {
 		if (fejezet === selected) {
@@ -182,7 +182,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 		}
 	};
 
-	const handleItemPress = (item: Book | Test | Bac | Extra) => {
+	const handleItemPress = (item: Item) => {
 		if (item.type === 'test') {
 			navigation.navigate('Web', {uri: item.link, page: 0});
 		} else if (item.type === 'bac' || item.type === 'extra') {
@@ -201,7 +201,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 	};
 	
 	const handleAddItem = (data: any) => {
-		let newItem: Book | Test;
+		let newItem: Item;
 		switch(data.ref.type) {
 			case 'Könyv': {
 				newItem = {
@@ -262,7 +262,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 			'Extra': 'extra'
 		}
 		const dbString = GetDbPath(data.ref.type, data.ref.db) + data.ref.index;
-		let newItem: Book | Test;
+		let newItem: Item;
 		switch(data.ref.type) {
 			case 'Könyv': {
 				newItem = {
@@ -312,10 +312,10 @@ const TreeScreen = ({route, navigation}: Props) => {
 		console.log(map[data.ref.type]);
 		newItems[data.ref.realIndex] = newItem;
 		// console.log(newItem);
-		setItems({capitol: selected, items: newItems});
+		retrieveItems({capitol: selected, items: newItems});
 	}
 
-	const treeItem = ({item}: {item: Book | Test | Bac | Extra}) => {
+	const treeItem = ({item}: {item: Item}) => {
 		const map: {[id: string]: string} = {
 			'book': 'Könyv',
 			'test': 'Teszt',
@@ -364,7 +364,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 					data={items}
 					renderItem={treeItem}
 					initialNumToRender={items?.length}
-					keyExtractor={(item: Bac | Test | Extra | Book) => item.nev}
+					keyExtractor={(item: Item) => item.nev}
 				/></>
 			) : (
 				<Edit variant={'Add'} data={{ref: {

@@ -10,6 +10,10 @@ const LoginScreen = ({onLogin}: {onLogin: (newCode: string) => void}) => {
 	const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 	const [styles, theme] = useTheme(Theme, currTheme);
 
+	const handleLogin = () => {
+		onLogin(code);
+	}
+
 	return (
 		<SafeAreaView style={{height: '100%', backgroundColor: theme.accentColor}}>
 			<View style={styles.itemList}>
@@ -17,12 +21,12 @@ const LoginScreen = ({onLogin}: {onLogin: (newCode: string) => void}) => {
 					style={styles.textInput}
 					autoCapitalize="none"
 					autoCompleteType="password"
-					onSubmitEditing={() => onLogin(code)}
-					onChangeText={(text) => setCode(text)}
+					onSubmitEditing={handleLogin}
+					onChangeText={setCode}
 					placeholder="Írd be a kódot"
 					placeholderTextColor={theme.textColor}
 				/>
-				<TouchableOpacity style={styles.button} onPress={() => onLogin(code)}>
+				<TouchableOpacity style={styles.button} onPress={handleLogin}>
 					<Text style={styles.mediumText}>Belépés</Text>
 				</TouchableOpacity>
 			</View>
