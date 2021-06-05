@@ -91,7 +91,7 @@ export type BookState = {
 export type StoreModel = {
   subjects: Subject[];
   capitols: {[id: string]: Capitol[]};
-  items: {[id: string]: Array<Bac | Test | Extra | Book>};
+  items: {[id: string]: Item[]};
   userCode: string;
   bookStates: {[id: string]: BookState};
 
@@ -99,7 +99,7 @@ export type StoreModel = {
   addCapitols: Action<StoreModel, {subject: string; capitols: Capitol[]}>;
   addItems: Action<
     StoreModel,
-    {capitol: string; items: Array<Bac | Test | Extra | Book>}
+    {capitol: string; items: Item[]}
   >;
   setCode: Action<StoreModel, string>;
   setBookState: Action<StoreModel, {path: string; state: BookState}>;

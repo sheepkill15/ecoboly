@@ -22,10 +22,18 @@ const store = createContextStore<StoreModel>({
 		if (!payload.items) {
 			return;
 		}
-		state.items[payload.capitol] = [
-			...(state.items[payload.capitol] ? state.items[payload.capitol] : []) ,
-			...payload.items,
-		];
+		let items = state.items[payload.capitol];
+		if(!items) {
+			items = [];
+		}
+
+		for(let i = 0; i < payload.items.length; i++) {
+			if(!items.find(x => x.nev == payload.items[i].nev)) {
+				items.push(payload.items[i]);
+			}
+		}
+
+		state.items[payload.capitol] = [...items];
 	}),
 	setCode: action((state, payload) => {
 		state.userCode = payload;

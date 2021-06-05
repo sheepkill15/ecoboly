@@ -1,28 +1,29 @@
-// @ts-nocheck
-
-import React, {useState, useEffect} from 'react';
-import DropdownPicker from 'react-native-dropdown-picker';
-import {View, ViewStyle, Platform} from "react-native";
+import React, {useState} from 'react';
+import {Picker} from '@react-native-picker/picker';
+import {View, ViewStyle} from "react-native";
 import SettingsStore from './settings/SettingsStore';
 import { useTheme } from 'react-native-themed-styles';
 import { Theme } from './settings/styles';
 
-const Picker = ({items, onValueChanged, style}: {items: Array<string>; onValueChanged: (value: string) => void; style: ViewStyle}) => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(items[0]);
-    const [ownItems, setItems] = useState(items.map((item) => {
-        return {label: item, value: item}
-    }));
+const MyPicker = ({items, onValueChanged, defaultItem}: {items: Array<string>; onValueChanged: (value: string) => void; defaultItem?: string | undefined}) => {
+    const [value, setValue] = useState(defaultItem ?? items[0]);
 
     const currTheme = SettingsStore.useStoreState((state) => state.selectedTheme);
 
-    const [, theme] = useTheme(Theme, currTheme);
+    const [styles, theme] = useTheme(Theme, currTheme);
 
-    useEffect(() => {
-        onValueChanged(value);
-    }, [value]);
+    const handleValueChange = (itemValue: string, itemIndex: number) => {
+        setValue(itemValue);
+        onValueChanged(itemValue);
+    }
 
-    return <View style={{flex: 1}}><DropdownPicker style={Platform.select({web: {backgroundColor: theme.accentColor}})} showTickIcon={Platform.select({web: false, native: true})} theme={currTheme.toUpperCase()} searchable={false} open={open} value={value} items={ownItems} setValue={setValue} setItems={setItems} setOpen={setOpen} /></View>
+    return <View style={{flex: 1}}>
+        <Picker style={{padding: 4, backgroundColor: theme.backgroundColor, color: theme.textColor}} selectedValue={value} onValueChange={handleValueChange}>
+            {items.map((item) => (
+                <Picker.Item key={item} label={item} value={item}/>
+            ))}
+        </Picker>
+    </View>
 }
 
-export default Picker;
+export default MyPicker;

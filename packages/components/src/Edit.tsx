@@ -61,7 +61,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                     {variant === 'Add' ? <View style={{...styles.subjectTitle, zIndex: 10}} key={100}>
                             <Text style={styles.mediumText}>Típus</Text>
                                 <View>
-                                    <Picker onValueChanged={(value) => updateData(value, 'ref-type')} style={styles.textInput} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']} />
+                                    <Picker onValueChanged={(value) => updateData(value, 'ref-type')} items={['Könyv', 'Teszt', 'Extra', 'Érettségi']}/>
                                 </View>
                         </View> : <></>}
                     {Object.keys(newData).map((key, i) => {
@@ -75,7 +75,7 @@ const Edit = ({variant, data, onSave }: { variant: 'Add' | 'Edit', data: { [id: 
                         if (typeof newData[key] === 'object' && 'current' in newData[key]) {
                             return <View style={{...styles.subjectTitle, zIndex: 100 - i}} key={i}>
                                 <Text style={{...styles.mediumText, zIndex: -10}}>{key}</Text>
-                                <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} style={styles.textInput} items={newData[key].array} />
+                                <Picker onValueChanged={(value) => updateData({ current: value, array: newData[key].array }, key)} items={newData[key].array} defaultItem={newData[key].current}/>
                             </View>
                         }
                         return <View style={styles.subjectDescription} key={i}>

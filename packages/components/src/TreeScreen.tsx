@@ -34,6 +34,21 @@ type Props = {
 	navigation: TreeScreenNavigationProp;
 };
 
+
+const typeToString: {[id: string]: string} = {
+	'book': 'Könyv',
+	'test': 'Teszt',
+	'bac': 'Érettségi',
+	'extra': 'Extra'
+};
+
+const stringToType: {[id: string]: string} = {
+	'Könyv': 'book',
+	'Teszt': 'test',
+	'Érettségi': 'bac',
+	'Extra': 'extra'
+}
+
 const GetDbPath = (itemType: string, db: string): string => {
 	let dbString = '';
 	switch(itemType) {
@@ -255,12 +270,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 		}).catch((e) => console.log(e));
 	}
 	const handleItemSave = async (data: {[id: string]: any}) => {
-		const map: {[id: string]: string} = {
-			'Könyv': 'book',
-			'Teszt': 'test',
-			'Érettségi': 'bac',
-			'Extra': 'extra'
-		}
+
 		const dbString = GetDbPath(data.ref.type, data.ref.db) + data.ref.index;
 		let newItem: Item;
 		switch(data.ref.type) {
@@ -306,27 +316,17 @@ const TreeScreen = ({route, navigation}: Props) => {
 		newItem['hidden'] = data['Rejtve'];
 		await getDatabase().ref(dbString).update(newItem).catch((e) => console.log(e));
 		const newItems = items;
-		newItem = {...newItem, type: map[data.ref.type], index: data.ref.index};
-		console.log(newItem.type);
-		console.log(data.ref.type);
-		console.log(map[data.ref.type]);
+		newItem = {...newItem, type: stringToType[data.ref.type], index: data.ref.index};
 		newItems[data.ref.realIndex] = newItem;
-		// console.log(newItem);
 		retrieveItems({capitol: selected, items: newItems});
 	}
 
 	const treeItem = ({item}: {item: Item}) => {
-		const map: {[id: string]: string} = {
-			'book': 'Könyv',
-			'test': 'Teszt',
-			'bac': 'Érettségi',
-			'extra': 'Extra'
-		}
 		const data: any = {'Név': item.nev, 'Link': item.link, 'Rejtve': item.hidden ?? false};
 		data['ref'] = {
 			index: item.index,
 			db: selected,
-			type: map[item.type ?? 'extra'],
+			type: typeToString[item.type ?? 'extra'],
 			realIndex: items.indexOf(item),
 		};
 		if(item.type === 'book') {
@@ -340,6 +340,10 @@ const TreeScreen = ({route, navigation}: Props) => {
 				<View style={styles.treeItem}>
 					{icons[item.type as string]}
 					<Text style={[styles.mediumText, {marginStart: 8}]}>{item.nev}</Text>
+					{isAdmin && <TouchableOpacity style={styles.button}
+									   onPress={() => handleItemSave({...data, 'Rejtve': !item.hidden})}>
+						<Text style={styles.mediumText}>{item.hidden ? 'Rejtve' : 'Mutatva'}</Text>
+					</TouchableOpacity>}
 				</View>
 			</TouchableOpacity>
 			<Edit variant={'Edit'} data={data} onSave={handleItemSave} />

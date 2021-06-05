@@ -19,7 +19,8 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noEmit": false
   },
   "exclude": [
     "node_modules"

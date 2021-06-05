@@ -29,6 +29,7 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 	},
 	image: {
 		...Platform.select({web: {width: '10%'}, native: {width: '40%'}}),
+		minWidth: 150,
 		aspectRatio: 0.76,
 		resizeMode: 'contain',
 	},

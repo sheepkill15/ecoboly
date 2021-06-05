@@ -32,7 +32,7 @@ const BottomBook = ({
 				path: targetDir,
 				state: {
 					exists: ex,
-					downloading: false,
+					downloading: bookState.downloading,
 				},
 			});
 		};

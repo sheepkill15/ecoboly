@@ -142,7 +142,9 @@ const NavStack = () => {
 							tabStyle: {
 								width: '5rem'
 							},
-							renderIndicator: () => <View style={{width: '100%', height: '100%', borderBottomWidth: 1, borderBottomColor: 'violet'}}/>,
+							renderIndicator: () =>
+								<View style={{width: '100%', height: '100%',
+									...(topNav ? {borderBottomWidth: 1} : {borderTopWidth: 1}), borderColor: 'violet'}}/>,
 						}})
 					}}
 					screenOptions={({route}) => ({
