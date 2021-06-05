@@ -2,7 +2,8 @@ import { AppRegistry } from 'react-native';
 
 import App from 'components/src/App';
 
-require("@babel/polyfill"); // this should be include at the top
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 AppRegistry.registerComponent('bolyai_monorepo', () => App)
 AppRegistry.runApplication('bolyai_monorepo', {

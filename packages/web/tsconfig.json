@@ -20,7 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
-    "noEmit": false
+    "noEmit": true
   },
   "exclude": [
     "node_modules"

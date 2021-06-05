@@ -7,8 +7,6 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-require("@babel/polyfill"); // necesarry
-
 const appDirectory = path.resolve(__dirname, './');
 
 // This is needed for webpack to compile JavaScript.
@@ -22,15 +20,22 @@ const babelLoaderConfiguration = {
   include: [
     path.resolve(appDirectory, 'src'),
     path.resolve(appDirectory, '../components/src'),
-    path.resolve(appDirectory, '../../node_modules')
+    path.resolve(appDirectory, '../../node_modules'),
+      path.resolve(appDirectory, './node_modules')
   ],
   use: {
     loader: "babel-loader",
     options: {
       presets: [
-        "@babel/preset-env",
+        [
+          '@babel/preset-env',
+          {
+            "useBuiltIns": "entry",
+            "corejs": 3
+          }
+        ],
         "@babel/preset-react",
-        "@babel/preset-typescript",
+        ['@babel/preset-typescript', {allowNamespaces: true}],
       ],
     },
   },
@@ -60,7 +65,7 @@ const cssLoaderConfiguration = {
 
 module.exports = {
   
-  entry: ['@babel/polyfill', path.resolve(appDirectory, 'src/index.tsx')],
+  entry: [path.resolve(appDirectory, 'src/index.tsx')],
 
   // configures where the build ends up
   output: {
