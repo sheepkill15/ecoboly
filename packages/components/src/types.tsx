@@ -121,7 +121,6 @@ export type Styles = {
   mediumText: TextStyle;
   largeText: TextStyle;
   treeItemsList: ViewStyle;
-  treeItem: TextStyle;
   settingsItem: ViewStyle;
   divider: ViewStyle;
   button: ViewStyle;

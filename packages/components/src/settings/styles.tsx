@@ -53,12 +53,6 @@ const Theme = styleSheetFactory<Styles>((theme) => ({
 		paddingStart: 32,
 		paddingBottom: 16,
 	},
-	treeItem: {
-		margin: 8,
-		flex: 1,
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-	},
 	settingsItem: {
 		margin: 8,
 		// flex: 1,

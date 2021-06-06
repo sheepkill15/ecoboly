@@ -205,7 +205,7 @@ const TreeScreen = ({route, navigation}: Props) => {
 		return (isAdmin || !item.hidden) ? (
 			<>
 			<TouchableOpacity onPress={() => handleItemPress(item)}>
-				<View style={styles.treeItem}>
+				<View style={styles.subjectContent}>
 					{icons[item.type as string]}
 					<Text style={[styles.mediumText, {marginStart: 8}]}>{item.nev}</Text>
 					{isAdmin && <TouchableOpacity style={styles.button}
