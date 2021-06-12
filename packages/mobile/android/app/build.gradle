@@ -81,7 +81,7 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "packages/mobile/index.js",
     root: "../../../../",
-
+    cliPath: 'node_modules/react-native/cli.js',
     enableHermes: false,  // clean and rebuild if changing
 ]
 

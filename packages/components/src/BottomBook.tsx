@@ -26,13 +26,13 @@ const BottomBook = ({
 	useEffect(() => {
 
 		const checkIfExists = async () => {
-			if(bookState.downloading) return;
+			if(bookState?.downloading) return;
 			const ex = await RNFetchBlob.fs.exists(targetDir);
 			setBookState({
 				path: targetDir,
 				state: {
 					exists: ex,
-					downloading: bookState.downloading,
+					downloading: bookState?.downloading ?? false,
 				},
 			});
 		};
@@ -112,7 +112,7 @@ const BottomBook = ({
 						style={styles.button}
 						onPress={() => handleDownload()}>
 						<Text style={styles.mediumText}>
-							{bookState.downloading ? '...' : 'Letöltés'}
+							{bookState?.downloading ? '...' : 'Letöltés'}
 						</Text>
 					</TouchableOpacity>
 					<Text style={styles.smallText}>Méret: {book.meret} MB</Text>
