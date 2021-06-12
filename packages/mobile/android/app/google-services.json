@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "303318641764",
+    "firebase_url": "https://bolyais-app.firebaseio.com",
+    "project_id": "bolyais-app",
+    "storage_bucket": "bolyais-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303318641764:android:10bc968bd5e091b3ee4371",
+        "android_client_info": {
+          "package_name": "com.aronniki.bolyaiprojekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303318641764-48padsal7bi4inp054fuie2h8s8fe4bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV4lAdBuoa7oZh8g-xQlEWj4I7-KccYws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303318641764-48padsal7bi4inp054fuie2h8s8fe4bk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303318641764-lqbkskrp1h0j18gvflmie2p4c9ldvh8b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bolyaiprojekt"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-6729129195115808~1513859007"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303318641764:android:63a7903bf4c78304ee4371",
+        "android_client_info": {
+          "package_name": "com.bolyaiprojekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303318641764-48padsal7bi4inp054fuie2h8s8fe4bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV4lAdBuoa7oZh8g-xQlEWj4I7-KccYws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303318641764-48padsal7bi4inp054fuie2h8s8fe4bk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303318641764-lqbkskrp1h0j18gvflmie2p4c9ldvh8b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bolyaiprojekt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
