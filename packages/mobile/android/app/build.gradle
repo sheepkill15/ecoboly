@@ -136,8 +136,8 @@ android {
         applicationId "com.aronniki.bolyaiprojekt"
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 51
-        versionName "3.1f"
+        versionCode 52
+        versionName "3.2f"
         multiDexEnabled true
     }
     splits {
