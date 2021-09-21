@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from "react-native";
-import {Picker} from '@react-native-picker/picker';
+import {Picker} from 'react-native';
 import SettingsStore from './settings/SettingsStore';
 import { useTheme } from 'react-native-themed-styles';
 import { Theme } from './settings/styles';
