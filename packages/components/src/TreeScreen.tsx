@@ -184,7 +184,9 @@ const TreeScreen = ({route, navigation}: Props) => {
 		retrieveItems({capitol: data['ref'].db as string, items: [{...newItem}]});
 		delete newItem['type'];
 		const dbString = GetDbPath(data.ref.type, data['ref'].db);
-		
+		if(newItem['hidden'] === undefined) {
+			newItem['hidden'] = false;
+		}
 		getDatabase().ref(dbString).once('value').then((snapshot) => {
 			getDatabase().ref(dbString + snapshot.numChildren()).set(newItem).catch((e) => console.log(e));
 		}).catch((e) => console.log(e));
