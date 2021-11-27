@@ -1,0 +1,7 @@
+        * Be able to send data to Firestore
+        * Lock the user so it won`t be able to send multiple
+        * Be able to fetch the data from Firestore
+        * Graph it
+        * Make an organisational UI System
+        * Do the desired calculations
+* Validation only let Numbers
