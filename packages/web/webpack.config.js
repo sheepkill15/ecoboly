@@ -26,18 +26,28 @@ const babelLoaderConfiguration = {
   use: {
     loader: "babel-loader",
     options: {
+      "plugins": [
+        ["@babel/plugin-transform-runtime", {
+          "helpers": false,
+          "regenerator": true,
+        }]
+      ],
       presets: [
         [
           '@babel/preset-env',
           {
             "useBuiltIns": "entry",
-            "corejs": 3
+            "corejs": 3,
+            "targets": {
+              "node": "current"
+            }
           }
         ],
         "@babel/preset-react",
         ['@babel/preset-typescript', {allowNamespaces: true}],
       ],
     },
+    
   },
 };
 
