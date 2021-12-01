@@ -4,6 +4,13 @@
     "private": true,
     "devDependencies": {},
     "dependencies": {
+        "@emotion/react": "^11.7.0",
+        "@emotion/styled": "^11.6.0",
+        "@material-ui/core": "^4.12.3",
+        "@material-ui/lab": "^4.0.0-alpha.60",
+        "@mui/icons-material": "^5.2.0",
+        "@mui/lab": "^5.0.0-alpha.58",
+        "@mui/material": "^5.2.2",
         "@react-native-async-storage/async-storage": "^1.14.1",
         "@react-native-community/masked-view": "^0.1.10",
         "@react-native-community/progress-bar-android": "^1.0.4",
@@ -14,6 +21,7 @@
         "@react-navigation/native": "^5.9.3",
         "@react-navigation/stack": "^5.14.3",
         "easy-peasy": "^5.0.3",
+        "react-hook-form": "^7.20.5",
         "react-native-gesture-handler": "^1.10.3",
         "react-native-reanimated": "^2.0.0",
         "react-native-safe-area-context": "^3.2.0",
@@ -22,6 +30,7 @@
         "react-native-tab-view": "^3.0.0",
         "react-native-themed-styles": "^0.0.4",
         "react-navigation": "^4.4.4",
-        "react-reconciler": "^0.26.2"
+        "react-reconciler": "^0.26.2",
+        "recharts": "^2.1.6"
     }
 }
